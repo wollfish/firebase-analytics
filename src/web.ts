@@ -19,11 +19,17 @@ export class FirebaseAnalyticsWeb extends WebPlugin
   private scripts = [
     {
       key: "firebase-app",
-      src: "https://www.gstatic.com/firebasejs/8.2.3/firebase-app.js",
+      src: "https://www.gstatic.com/firebasejs/9.9.1/firebase-app-compat.js",
     },
     {
       key: "firebase-ac",
-      src: "https://www.gstatic.com/firebasejs/8.2.3/firebase-analytics.js",
+      src:
+        "https://www.gstatic.com/firebasejs/9.9.1/firebase-analytics-compat.js",
+    },
+    {
+      key: "firebase-perf",
+      src:
+        "https://www.gstatic.com/firebasejs/9.9.1/firebase-performance-compat.js",
     },
   ];
 
@@ -59,6 +65,7 @@ export class FirebaseAnalyticsWeb extends WebPlugin
 
       const app = window.firebase.initializeApp(options);
       this.analyticsRef = app.analytics();
+      app.performance();
       resolve(this.analyticsRef);
     });
   }
@@ -282,12 +289,14 @@ export class FirebaseAnalyticsWeb extends WebPlugin
   private loadScripts() {
     const firebaseAppScript = this.scripts[0];
     const firebaseAnalyticsScript = this.scripts[1];
+    const firebasePerformanceScript = this.scripts[2];
 
     return new Promise(async (resolve, _reject) => {
       const scripts = this.scripts.map((script) => script.key);
       if (
         document.getElementById(scripts[0]) &&
-        document.getElementById(scripts[1])
+        document.getElementById(scripts[1]) &&
+        document.getElementById(scripts[2])
       ) {
         return resolve();
       }
@@ -296,6 +305,10 @@ export class FirebaseAnalyticsWeb extends WebPlugin
       await this.loadScript(
         firebaseAnalyticsScript.key,
         firebaseAnalyticsScript.src
+      );
+      await this.loadScript(
+        firebasePerformanceScript.key,
+        firebasePerformanceScript.src
       );
       resolve();
     });

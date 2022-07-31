@@ -11,6 +11,7 @@ target 'Plugin' do
   capacitor_pods
 
   pod 'FirebaseAnalytics'
+  pod 'FirebasePerformance'
 end
 
 target 'PluginTests' do

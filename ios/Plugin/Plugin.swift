@@ -2,6 +2,7 @@ import Foundation
 import Capacitor
 import FirebaseCore
 import FirebaseAnalytics
+import FirebasePerformance
 
 
 @objc(FirebaseAnalytics)

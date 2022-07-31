@@ -13,4 +13,5 @@ Pod::Spec.new do |s|
     s.static_framework = true
     s.dependency 'Capacitor'
     s.dependency 'FirebaseAnalytics'
+    s.dependency 'FirebasePerformance'
   end
